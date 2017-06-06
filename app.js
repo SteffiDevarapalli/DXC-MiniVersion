@@ -1,13 +1,13 @@
 var app = angular.module("myApp", []);
 
 		app.controller("myCtrl", function($scope) {
-			$scope.AbsoluteImageUrl = "images/signin-20170425-02.jpg";			
+			$scope.AbsoluteImageUrl = "signin-20170425-02.jpg";			
 		});
 		app.controller('menubar', function ($scope) {
-			$scope.MobileImageUrl = "images/mobile.png";
-			$scope.TabImageUrl = "images/tablet.png";
-			$scope.DesktopImageUrl = "images/desktop.png";
-			$scope.ThemeImageUrl = "images/index.png";
+			$scope.MobileImageUrl = "mobile.png";
+			$scope.TabImageUrl = "tablet.png";
+			$scope.DesktopImageUrl = "desktop.png";
+			$scope.ThemeImageUrl = "index.png";
 			$scope.Title = "DXC Technology";
 			$scope.Options = "Site";			
 		});
