@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<script src="..\JS\angular-1.6.4\angular.min.js"></script>
+	<script src="..\JS\jquery-1.7.1.min.js"></script>
+	<link rel="stylesheet" href="..\CSS\layout.css"/>
+	<script src="..\JS\app.js"></script>
+	
+	<body ng-app="myApp" >
+		<div  ng-controller="myCtrl" class="controller">
+			<img alt="background" ng-src="{{AbsoluteImageUrl}}"class="image" />				
+		</div>
+		<div class="textdisp" ng-controller="menubar">	
+			<p class="title">{{Title}}</p><p class="title2">&#8900; {{Options}}</p>
+			<img alt="theme" ng-src="{{MobileImageUrl}}"class="imageIcon" />
+			<img alt="theme" ng-src="{{TabImageUrl}}"class="imageIcon" />
+			<img alt="theme" ng-src="{{DesktopImageUrl}}"class="imageIcon" />
+			</p>
+		</div>
+		<div ng-controller="menufunctions" ng-focus="hideContent()">
+		<div class="itemsdisp" >
+			<ul class="navigation">
+				<li ng-repeat="menuitems in menuitems" class="menuitems" ng-mouseover="showContent(menuitems.title)"  ng-class="{'active': menuitems.id == menuBarList.activeItem}" 
+				ng-click="menuBarList.activeItem=menuitems.id">{{menuitems.title}} &#x25BF;</li>
+			</ul>
+		</div>
+		<div class="admindisp" ng-show="admin">
+			<ul class="navigation1">
+				<li ng-repeat="adminitems in adminitems" class="adminitems" ng-class="{'active': adminitems.id == adminList.activeItem}" 
+				ng-click="adminList.activeItem=adminitems.id"><a href="void(0)">{{adminitems.title}}</a></li>
+			</ul>
+		</div>
+		<div class="featuresdisp" ng-show="features">
+			<ul class="navigation1">
+				<li ng-repeat="featureitems in featureitems" class="featureitems" ng-class="{'active': featureitems.id == featureList.activeItem}" 
+				ng-click="featureList.activeItem=featureitems.id"><a href="void(0)">{{featureitems.title}}</a></li>
+			</ul>
+		</div>
+		<div class="workdisp" ng-show="work">
+			<ul class="navigation1">
+				<li ng-repeat="workitems in workitems" class="workitems" ng-class="{'active': workitems.id == workList.activeItem}" 
+				ng-click="workList.activeItem=workitems.id"><a href="void(0)">{{workitems.title}}</a></li>
+			</ul>
+		</div>
+	</div>
+	</body>
+</html>
