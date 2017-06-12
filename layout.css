@@ -4,11 +4,12 @@ body{
 	font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;	
     
 }
-.bodyframe{
-	overflow:hidden;
-	background-size: 100% 100%;
+.sliderDiv, .mainBody{
+	padding : 0px;
+	margin : 0px;
+	width : 100%;
+	height : 100%;
 }
-
 .controller{
 	padding : 0px;
 	margin : 0px;
@@ -16,57 +17,104 @@ body{
 	-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
-	
-	width : 100%;
-	height : 100%;
-	z-index : 0;
-	position: fixed; 
-	top: 0; 
-	left: 0; 
-	overflow: hidden;
-	
-	/* Preserve aspet ratio */
+    background-size: cover;		
+	 /*Preserve aspet ratio */
 	min-width: 100%;
 	min-height: 100%;
+	left:0;
+	position:relative;
+	background-image: url('../images/signin-20170425-02.jpg');
+	width:100%;
+	height:600px;
 }
-.image { 
-	position: relative; 
+.itemsdisp { 
+	position: absolute;
+	display:inline-block;
+	opacity: 0.8;
+}
+
+.itemsdisp { 	
+	width: 96%;
+	height:4%;
+	left: 0;
+	/*top: 8%;*/
+	padding:2%;	
+	color:#0e0e0e;	 
+}
+
+.textdisp { 	
+	width: 100%;
+	/*height:6%;*/
+	background-color:#2553A9;
+	left: 0;
+	top:0;
+	display:inline-block;
+	margin-right:1%
+	
+}
+.image { 	
 	width : 100%;
 	height : 100%;
 }
 
-/*.textdisp { 
-	position: absolute;
-	width: 10%;
-	height:100%;
-	background-color:#D6EAF8;
-	opacity: 0.8;
-	right: 0;
-	top:0;	
-}*/
-
-.textdisp { 	
-	width: 98%;
+.sliderDiv{
 	height:6%;
-	background-color:#fff;
-	opacity: 0.5;
-	left: 0;
-	top:0;	
-	padding:1% 1% 0 1%;
-	display:inline-block;
+	background-color:#2553A9;
 }
-.itemsdisp { 	
-	width: 98%;
-	height:8%;
+.textdisp { 	
+	width: 100%;
+	/*height:6%;*/
+	background-color:#2553A9;
 	left: 0;
 	top:0;
+	display:inline-block;
+	margin-right:1%
+	
+}
+.imageIcon{
+	cursor: pointer;
+	width: 3%;
+	/*height:1%;*/
+	float:right;
 	padding:1%;
+	right:0;
+}
+
+.title{
+	cursor: pointer;
+	color:#0e0e0e;
+	 font-size:20px;
+	 font-style:italic;
+	 margin:0;
+	 padding:2% 1% 1% 2%;
+	 float:left;
+	 font-weight: bold;
+}
+.title2{
+	cursor: pointer;
+	color:#0e0e0e;
+	font-size:20px;
+	 margin:0;
+	 padding:2% 1% 1% 2%;
+	 float:left;
+	 text-transform:uppercase;
+}
+
+.itemsdisp { 	
+	width: 96%;
+	height:4%;
+	left: 0;
+	/*top: 8%;*/
+	padding:2%;
 	display:inline-block;
 	color:#0e0e0e;
 	opacity: 0.8;
+	position: absolute; 
 }
 
+.bodyController{
+	margin:0 !important; padding-top:6%;
+}
 
 ul.navigation li {
     cursor: pointer;
@@ -77,48 +125,23 @@ ul.navigation li {
 	font-weight: bold;
 	
 }
+ul.navigation li a{
+	color: #000;
+    text-decoration: none;
+}
 
 .navigation {
 	margin:1%;
 	padding-right:10%
 }
 
-.imageIcon{
-	cursor: pointer;
-	width: 3%;
-	height:1%;
-	float:right;
-	padding-right:1%;
-	right:0;
-}
-
-.title{
-	cursor: pointer;
-	color:#0e0e0e;
-	 font-size:20px;
-	 font-style:italic;
-	 margin:0;
-	 padding:0.5% 1% 1% 1%;
-	 float:left;
-	 font-weight: bold;
-}
-.title2{
-	cursor: pointer;
-	color:#0e0e0e;
-	 font-size:20px;
-	 margin:0;
-	 padding:0.5% 1% 1% 2%;
-	 float:left;
-	 text-transform:uppercase;
-}
-
-.admindisp, .featuresdisp, .workdisp{
+.admindisp, .featuresdisp, .workdisp{ 
 	color:#0e0e0e;
 	opacity:0.8;	
 }
-.admindisp{padding-left:60%;width:23%;}
-.featuresdisp{padding-left:68%;width:15%;}
-.workdisp{padding-left:80%;width:18%;}
+.admindisp{margin:0 15% 0 65%;width:20%; }
+.featuresdisp{margin:0 15% 0 73%;width:12%;}
+.workdisp{margin:0 6% 0 82%;width:12%; }
 
 .navigation1{
     list-style-type: none;
@@ -134,15 +157,77 @@ ul.navigation li {
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
+}
+.navigation1 li a:hover {
+    display: block;
+    background-color: #000;
+	color:#fff;
 	
 }
 
-.navigation1 li a.active {
-    background-color: #4CAF50;
-    color: white;
+.imageIcon:hover {
+    -moz-box-shadow: 0 0 10px #000; 
+	-webkit-box-shadow: 0 0 10px #000; 
+	box-shadow: 0 0 10px #000; 
+}
+.text {
+position:relative;
+bottom:30px;
+left:0px;
+visibility:hidden;
 }
 
-.navigation1 li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
+.imageIcon:hover .text {
+visibility:visible;
+}
+.imgSliderDiv{
+	width : 100%;
+	height: 230px;
+	background-color:#dedede;
+	overflow:hidden;
+}
+.imageDiv{
+	width : 87%;
+	height: 230px;
+	background-color:#dedede;
+	overflow:hidden;
+	float:left;
+}
+.siteIcons{
+	width:240px;
+	Height:160px;	
+}
+
+ul.navigation2{
+	float:left;
+}
+ul.navigation2 li {
+	float:left;
+	list-style:none;
+	/*padding:0 3% 0 0 ;*/
+	height:160px;
+	margin:0;
+	width: 280px;
+	
+}
+ul.navigation2 li img{
+    text-decoration: none;
+	
+}
+
+.anchors{
+	height:20px;
+	width:20px;
+	padding-top:105px;
+	float:left;
+}
+.leftArrow{
+	padding-left: 2.5%;
+	float:left;
+	width:3%;
+}
+.rightArrow{
+	padding-left: 2.5%;
+	float:right;
+	width:3%;
 }
