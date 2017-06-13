@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 	<script src="..\JS\angular-1.6.4\angular.min.js"></script>
-	<script src="..\JS\jquery-1.7.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
 	<link rel="stylesheet" href="..\CSS\layout.css"/>
 	<script src="..\JS\app.js"></script>
 	
 	<body ng-app="myApp" >
 		<div ng-controller="myCtrl" >
-			<div class="sliderDiv">
+			<!--<div class="sliderDiv">
 				<div class="textdisp">	
 					<p class="title">{{Title}}</p><p class="title2" ng-click="showDiv()">&#8900; {{Options}}</p>
 					<img alt="theme" ng-src="{{MobileImageUrl}}" class="imageIcon" ng-attr-title="Mobile View"/>
@@ -27,33 +28,41 @@
 					</div>
 					<div class="rightArrow"><img alt="theme" ng-src="..\images\right.png" class="anchors" ng-click="scrollImageRight()"/></div>
 				</div>
-			</div>
+			</div>-->
 			<div class="mainBody" >
-				<div class="controller" ><!--ng-mouseout="hideContent()"-->
+				<div class="controller" ng-style="myObj">
 					<div class="itemsdisp" >
-						<ul class="navigation">
-							<li ng-repeat="menuitems in menuitems" class="menuitems" ng-click="menuBarList.activeItem=menuitems.id">
-								<a href="javascript:void(0);" ng-mouseover="showContent(menuitems.title)">{{menuitems.title}} &#x25BF;</a>
-							</li>
-						</ul>
+						<div class="subDiv">
+							<a href="javascript:void(0);"><img ng-src="..\images\struck-light1.png" class="homeImg"/></a>
+						</div>
+						<div class="subDiv1">							
+							<ul class="navigation">
+								<li class="menuitems">
+									<a href="javascript:void(0);" ng-mouseover="showContent('none')" ng-click="slideDiv()" ng-style="myObj1"><img ng-src="{{menuImg}}" class="menuToggle"/></a>
+								</li>
+								<li ng-repeat="menuitems in menuitems" class="menuitems" ng-click="menuBarList.activeItem=menuitems.id">
+									<a href="javascript:void(0);" ng-mouseover="showContent(menuitems.title)">{{menuitems.title}} &#x25BF;</a>
+								</li>								
+							</ul>
+						</div>
 					</div>					
 					<div class="bodyController" >
 						<div class="admindisp" ng-show="admin" >
-							<ul class="navigation1" >
+							<ul class="navigation1" ng-mouseleave="hideContent()">
 								<li ng-repeat="adminitems in adminitems" class="adminitems"	ng-click="adminList.activeItem=adminitems.id">
 									<a href="javascript:void(0);">{{adminitems.title}}</a>
 								</li>
 							</ul>
 						</div>
 						<div class="featuresdisp" ng-show="features">
-							<ul class="navigation1">
+							<ul class="navigation1" ng-mouseleave="hideContent()">
 								<li ng-repeat="featureitems in featureitems" class="featureitems" ng-click="featureList.activeItem=featureitems.id">
 									<a href="javascript:void(0);">{{featureitems.title}}</a>
 								</li>
 							</ul>
 						</div>
 						<div class="workdisp" ng-show="work">
-							<ul class="navigation1">
+							<ul class="navigation1" ng-mouseleave="hideContent()">
 								<li ng-repeat="workitems in workitems" class="workitems" ng-click="workList.activeItem=workitems.id">
 									<a href="javascript:void(0);">{{workitems.title}}</a>
 								</li>
@@ -61,7 +70,9 @@
 						</div>
 					</div>
 				</div>								
-				
+				<div class="controller-right" ng-show="show">
+					<input type="text" name="s" id="s" placeholder="Search...">
+				</div>
 			</div>
 		</div>
 	</body>
