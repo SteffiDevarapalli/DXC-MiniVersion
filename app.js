@@ -7,6 +7,7 @@ var app = angular.module("myApp", []);
 			$scope.TabImageUrl = "../images/tablet.png";
 			$scope.DesktopImageUrl = "../images/desktop.png";
 			$scope.ThemeImageUrl = "../images/index.png";
+			$scope.menuImg = "../images/menu-toggle-thin.png";
 			$scope.Title = "KIFI Technology";
 			$scope.Options = "Site";		
 			
@@ -99,6 +100,32 @@ var app = angular.module("myApp", []);
 				$scope.img5 = false;
 				$scope.display = $scope.display ? false : true;
 			};
+			$scope.slideDiv = function(){
+				$scope.show = $scope.show ? false : true;
+				if(eval($scope.show) == true){
+					$scope.myObj = {						
+						"margin-left" : "-225px",	
+						"-moz-transition":"ease-in-out",
+						"-webkit-transition":"ease-in-out"
+					}
+					$scope.myObj1 = {	
+						"-moz-transition":"ease-in-out",
+						"-webkit-transition":"ease-in-out"
+					}
+					$scope.menuImg = "../images/close.png";
+				}else{
+					$scope.myObj = {
+						"margin-left" : "0px",
+						"-moz-transition":"ease-in-out",
+						"-webkit-transition":"ease-in-out"						
+					}
+					$scope.myObj1 = {	
+						"-moz-transition":"ease-in-out",
+						"-webkit-transition":"ease-in-out"
+					}
+					$scope.menuImg = "../images/menu-toggle-thin.png";
+				}
+			};
 						
 			$scope.showContent = function(divValue){
 				if(divValue == "admin"){
@@ -106,16 +133,22 @@ var app = angular.module("myApp", []);
 					$scope.features = false;
 					$scope.work = false;
 				}
-				if(divValue == "features"){
+				else if(divValue == "features"){
 					$scope.features = true;
 					$scope.admin = false;
 					$scope.work = false;
 				}
-				if(divValue == "work"){
+				else if(divValue == "work"){
 					$scope.work = true;
 					$scope.features = false;
 					$scope.admin = false;
-				}				
+				}
+				else{
+					$scope.admin = false;
+					$scope.features = false;
+					$scope.work = false;
+				}
+				
 			};
 
 			$scope.hideContent = function(){
