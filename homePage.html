@@ -19,7 +19,7 @@
 					<div class="leftArrow" ><img alt="theme" ng-src="..\images\left.png" class="anchors" ng-click="scrollImageLeft()"/></div>
 					<div class="imageDiv"> 					
 						<ul class="navigation2">
-							<li ng-repeat="siteitems in siteitems"  ng-show="{{siteitems.id}}" class="siteitems" ng-id="{{siteitems.id}}" ng-click="siteList.activeItem=siteitems.id">
+							<li ng-repeat="siteitems in siteitems"  ng-show="{{siteitems.id}}" class="siteitems" ng-id="{{siteitems.id}}" >
 								<div>
 									<img alt="theme" ng-src="{{siteitems.imagename}}" class="siteIcons"/><span class="title">{{siteitems.title}}</span>
 								</div>
@@ -30,18 +30,24 @@
 				</div>
 			</div>-->
 			<div class="mainBody" >
-				<div class="controller" ng-style="myObj">
+				<div class="controller" ng-style="myObj">					
+					<img src="../images/video-background1.jpg"  ng-show="imgdisp1" class="sliderimg" />
+					<img src="../images/start-dusk-1500x1000.jpg" ng-show="imgdisp2"class="sliderimg" />	
+					<img src="../images/hero-31-a-1500x1000.jpg" ng-show="imgdisp3" class="sliderimg"/>	
+					<img src="../images/Mans-Hands-Typing-On-Laptop-With-Smartphone-Book-And-Coffee.jpg" ng-show="imgdisp4" class="sliderimg" />					
 					<div class="itemsdisp" >
 						<div class="subDiv">
-							<a href="javascript:void(0);"><img ng-src="..\images\struck-light1.png" class="homeImg"/></a>
+							<a href="javascript:void(0);"><img ng-src="..\images\struck-light1.png" class="homeImg"/></a>							
 						</div>
 						<div class="subDiv1">							
 							<ul class="navigation">
 								<li class="menuitems">
-									<a href="javascript:void(0);" ng-mouseover="showContent('none')" ng-click="slideDiv()" ng-style="myObj1"><img ng-src="{{menuImg}}" class="menuToggle"/></a>
+									<a href="javascript:void(0);" ng-mouseover="showContent('none')" ng-click="slideDiv()" ng-style="myObj1">
+										<img ng-src="{{menuImg}}" class="menuToggle"/>
+									</a>
 								</li>
-								<li ng-repeat="menuitems in menuitems" class="menuitems" ng-click="menuBarList.activeItem=menuitems.id">
-									<a href="javascript:void(0);" ng-mouseover="showContent(menuitems.title)">{{menuitems.title}} &#x25BF;</a>
+								<li ng-repeat="menuitems in menuitems" class="menuitems" ng-mouseover="showContent(menuitems.title)">
+									<a href="javascript:void(0);" >{{menuitems.title}} &#x25BF;</a>
 								</li>								
 							</ul>
 						</div>
@@ -61,17 +67,33 @@
 								</li>
 							</ul>
 						</div>
-						<div class="workdisp" ng-show="work">
+						<!--<div class="workdisp" ng-show="work">
 							<ul class="navigation1" ng-mouseleave="hideContent()">
 								<li ng-repeat="workitems in workitems" class="workitems" ng-click="workList.activeItem=workitems.id">
 									<a href="javascript:void(0);">{{workitems.title}}</a>
 								</li>
 							</ul>
-						</div>
+						</div>-->
 					</div>
 				</div>								
 				<div class="controller-right" ng-show="show">
-					<input type="text" name="s" id="s" placeholder="Search...">
+					<input type="text" name="s" id="s" placeholder="Search..." maxlength="20">
+					<ul class="navigationToggle">
+						<li class="toggleItems">
+						<li ng-repeat="toggleItems in toggleItems" class="toggleItems" ng-click="showSubContent(toggleItems.id,toggleItems.title)" ng-show="{{toggleItems.displayLi}}" id="{{toggleItems.id}}">
+							<img ng-src="..\images\leftArrow.png" class="subContentLeftImg" id="imgLeft{{toggleItems.id}}" ng-show="hide"/><a href="javascript:void(0);" id="a{{toggleItems.id}}" ng-style="">{{toggleItems.title}}<img ng-src="..\images\rightArrow.png" class="subContent" id="img{{toggleItems.id}}" ng-show="{{toggleItems.display}}"/></a>
+						</li>								
+					</ul>
+					<div class="textwidget">
+						<p>
+							<a href="http://twitter.com/" class="twitter" target="_self" title="Follow Me"></a> 
+							<a href="http://facebook.com/" class="facebook" target="_self" title="Like Us"></a> 
+							<a href="http://instagram.com/" class="instagram" target="_self" title="Follow Me"></a> 
+							<a href="http://dribbble.com/" class="dribbble" target="_self" title="Follow Me"></a> 
+							<a href="http://youtube.com/" class="youtube" target="_self" title="Follow Me"></a>
+						</p>						
+					</div>
+					<div class="footerText">© 2015 Your Company</div>
 				</div>
 			</div>
 		</div>
