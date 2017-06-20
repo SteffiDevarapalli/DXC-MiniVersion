@@ -1,39 +1,39 @@
 var app = angular.module("myApp", []);
 
-		app.controller("myCtrl", function($scope, $location, $anchorScroll,$parse) {
-			$scope.AbsoluteImageUrl = "../images/signin-20170425-02.jpg";						
-		
-			$scope.MobileImageUrl = "../images/mobile.png";
-			$scope.TabImageUrl = "../images/tablet.png";
-			$scope.DesktopImageUrl = "../images/desktop.png";
+		app.controller("myCtrl", function($scope, $location, $anchorScroll,$parse,$injector,$compile,$timeout,$window) {
+			$scope.AbsoluteImageUrl = "../images/signin-20170425-02.jpg";	
+			
 			$scope.ThemeImageUrl = "../images/index.png";
 			$scope.menuImg = "../images/menu-toggle-thin.png";
-			$scope.Title = "KIFI Technology";
-			$scope.Options = "Site";		
 			
-			$scope.siteList = {};
-			$scope.siteList.activeItem = 'img1';
-			$scope.siteitems = [{
-				id: 'img1',
-				title: 'District',
-				imagename: '../images/District.png'
-			}, {
-				id: 'img2',
-				title: 'District1',
-				imagename: '../images/devo.png'
-			}, {
-				id: 'img3',
-				title: 'District2',
-				imagename: '../images/hero.png'
-			}, {
-				id: 'img4',
-				title: 'District3',
-				imagename: '../images/overview.png'
-			}, {
-				id: 'img5',
-				title: 'District4',
-				imagename: '../images/Preview.png'
-			}];
+			var slidesInSlideshow = 4;
+			var slidesTimeIntervalInMs = 4000; 
+
+			/*code for sliding images */
+			var slideshow = 1;
+			 $scope.imgdisp1 = true;
+			 var slideTimer =
+			 $timeout(function interval() {
+				 slideshow = (slideshow % slidesInSlideshow) + 1;
+				 for (i = 1; i <= 4; i++) {
+					var strImg = 'imgdisp'+i;
+					if(eval(slideshow) == eval(i)){
+						var model = $parse(strImg);	
+						model.assign($scope, true);							
+					}else{
+						var model = $parse(strImg);	
+						model.assign($scope, false);
+					}
+					/*if(slideshow == 4){
+						var el = angular.element( document.querySelector( '.itemsdisp') ).attr('ng-style','color: #000 !important');
+					}else{
+						var el = angular.element( document.querySelector( '.itemsdisp') ).attr('ng-style','color: #dcdcdc !important');
+					}*/
+					
+				 };
+				 slideTimer = $timeout(interval, slidesTimeIntervalInMs);
+				 }, slidesTimeIntervalInMs);
+				/*code for sliding images - ends*/			
 					
 			// Must use a wrapper object, otherwise "activeItem" won't work			
 			$scope.menuBarList = {};
@@ -48,17 +48,7 @@ var app = angular.module("myApp", []);
 				id: 'item3',
 				title: 'admin'
 			}];
-			//toggle functions
-			/*$scope.showDiv = function(x){
-				$scope.falseDiv =  true;
-				var yCoordinate = $("div.controller").offset().top + 200;
-				var newHash = 'anchor' + x;
-				  if ($location.hash() !== newHash) {
-					$location.hash('anchor' + x);
-				  } else {
-					$anchorScroll();
-				  }
-			};*/
+
 			$scope.scrollImageLeft = function(){
 				$scope.checkFirstImage = false;
 				$scope.checkLastImage = false;
@@ -131,18 +121,11 @@ var app = angular.module("myApp", []);
 				if(divValue == "admin"){
 					$scope.admin = true;
 					$scope.features = false;
-					$scope.work = false;
 				}
 				else if(divValue == "features"){
 					$scope.features = true;
 					$scope.admin = false;
-					$scope.work = false;
-				}
-				else if(divValue == "work"){
-					$scope.work = true;
-					$scope.features = false;
-					$scope.admin = false;
-				}
+				}				
 				else{
 					$scope.admin = false;
 					$scope.features = false;
@@ -192,4 +175,147 @@ var app = angular.module("myApp", []);
 				id: 'item2',
 				title: 'KIFI Achievements'
 			}];
+			
+			$scope.toggleList = {};
+			$scope.toggleList.activeItem = 'item1';
+			$scope.toggleItems = [{
+				id: 'item1',
+				title: 'About',
+				display: true,
+				displayLi: true
+			}, {
+				id: 'item2',
+				title: 'News',
+				display: false,
+				displayLi: true
+			}, {
+				id: 'item3',
+				title: 'Expertise',
+				display: true,
+				displayLi: true
+			}, {
+				id: 'item4',
+				title: 'Contact',
+				display: false,
+				displayLi: true
+			}, {
+				id: 'item5',
+				title: 'The Team',
+				display: false,
+				displayLi: false
+			}, {
+				id: 'item6',
+				title: 'About Me',
+				display: false,
+				displayLi: false
+			}, {
+				id: 'item7',
+				title: 'Branding',
+				display: false,
+				displayLi: false
+			}, {
+				id: 'item8',
+				title: 'Photography',
+				display: false,
+				displayLi: false
+			}, {
+				id: 'item9',
+				title: 'Product Design',
+				display: false,
+				displayLi: false
+			}];
+			
+			$scope.compile = function(element){
+			  var el = angular.element(element);    
+			  $scope = el.scope();
+				$injector = el.injector();
+				$injector.invoke(function($compile){
+				   $compile(el)($scope)
+				});     
+			};
+			/*$scope.routeProvider = function(x) {
+			  $routeProvider
+				.when('/', {
+				  templateUrl: '/home',
+				  controller: 'HomeController',
+				  activeTab: 'home'
+				}).
+				when('/help', {
+				  templateUrl: '/help',
+				  controller: 'HelpController',
+				  activeTab: 'help'
+				}).
+				when('/donate', {
+				  templateUrl: '/donate',
+				  controller: 'DonateController',
+				  activeTab: 'donate'
+				}).
+				when('/server', {
+				  templateUrl: '/server',
+				  controller: 'ServerController',
+				  activeTab: 'server'
+				}).
+				when('/server/new', {
+				  templateUrl: '/server/new',
+				  controller: 'NewServerController',
+				  activeTab: 'serverNew'
+				}).
+				otherwise({
+				  redirectTo: '/'
+				});
+			};*/
+			
+			$scope.showSubContent = function(x,y){
+				var list = [];
+				if( x == "item1" ){	
+					list = [1,5,6];
+					/*$scope.liText = {						
+						"color" : "#777"
+					}*/					
+					angular.element( document.querySelector( '#imgLeftitem1') ).attr('ng-show',"true");
+					angular.element( document.querySelector( '#imgitem1') ).attr('ng-show',"false");
+				} else if(x == "item3"){
+					list = [3,7,8,9];
+					/*$scope.liText = {						
+						"color" : "#777"
+					}*/
+					angular.element( document.querySelector( '#imgLeftitem3') ).attr('ng-show',"true");
+					angular.element( document.querySelector( '#imgitem3') ).attr('ng-show',"false");
+				} else {
+					list = [1,2,3,4];					
+					/*$scope.liText = {						
+						"color" : "#dcdcdc"
+					}*/	
+					//$location.path('/'+y);
+//$route.reload();
+					angular.element( document.querySelector( '#imgLeftitem1') ).attr('ng-show',"false");
+					angular.element( document.querySelector( '#imgLeftitem3') ).attr('ng-show',"false");					
+					angular.element( document.querySelector( '#imgitem1') ).attr('ng-show',"true");
+					angular.element( document.querySelector( '#imgitem3') ).attr('ng-show',"true");
+				}
+				for(i=1; i<=9; i++){
+					if(list.indexOf(i) !== -1) {
+						var myEl = angular.element( document.querySelector( '#item'+i ) ).attr('ng-show',"true");
+						/*if(i == 1 || i ==3){
+							var myElement = angular.element( document.querySelector( '#aitem'+i) ).attr('ng-style','color: #777 !important');
+							$scope.compile(myElement);
+						}*/
+						angular.element( document.querySelector( '#item'+i ) ).removeAttr("compile");
+						angular.element( document.querySelector( '#item'+i ) ).removeAttr("ng-repeat");						
+						$scope.compile(myEl);	
+						
+					}else{
+						var myEl = angular.element( document.querySelector( '#item'+i ) ).attr('ng-show',"false");
+						/*if(i == 1 || i ==3){
+							var myElement = angular.element( document.querySelector( '#aitem'+i) ).attr('ng-style','color: #dcdcdc  !important');
+							$scope.compile(myElement);
+						}*/
+						angular.element( document.querySelector( '#imgitem'+i ) ).attr('ng-show',"false");
+						angular.element( document.querySelector( '#item'+i ) ).removeAttr("compile");
+						angular.element( document.querySelector( '#item'+i ) ).removeAttr("ng-repeat");							
+						$scope.compile(myEl);
+						
+					}
+				}				
+			};
 		});
