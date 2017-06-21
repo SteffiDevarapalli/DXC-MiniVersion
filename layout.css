@@ -8,8 +8,9 @@ body{
 	padding : 0px;
 	margin : 0px;
 	width : 100%;
-	height : 700px;
+	/*height:700px;*/
 	position:relative;
+	height:100%;
 }
 .controller{
 	padding : 0px;
@@ -25,7 +26,8 @@ body{
 	position:absolute;
 	/*background-image: url('../images/bck-img.jpg');*/
 	width:100%;
-	height:700px;
+	/*height:700px;*/
+	height:100%;
 }
 .active{
 	color:#000;
@@ -34,19 +36,32 @@ body{
 	color:#dcdcdc;
 }
 .controller .sliderimg{
-	height:700px;
+	/*height:700px;*/
 	width:100%;
+	height:100%;
+	
 }
-
+div.sliderLi{
+    top: 38%;
+    display: inline-block;
+    position: absolute;
+    float: right;
+    right: 2%;	
+}
+.sliderLi ul li{
+	font-size:140%;
+	color:#fff;
+}
 .controller-right{
 	width:225px;
-	height:638px;
+	/*height:638px;*/
+	height:93%;
 	background-color:#000;
-	border:1px solid #333;
+	border:3px solid #000;
 	top:0;
 	position:absolute;
 	right:0;
-	Padding:2%;
+	Padding:2% 2% 1% 0;
 }
 
 .subDiv{
@@ -292,7 +307,7 @@ input#s {
     border-color: #444;
 	font-size: 12px;
     width: 75%;
-    height: 45px;
+    height: 7%;
     line-height: 42px;
     max-width: 300px;
     margin: 8% 10%;
@@ -327,6 +342,7 @@ ul.navigationToggle li a{
 
 .navigationToggle {
 	padding-left: 10%;
+	padding-bottom: 10%;
 }
 img.subContent{
 	width:6px;
@@ -343,8 +359,8 @@ img.subContentLeftImg{
 }
 .textwidget{
 	width:80%;
-	height:40px;
-	margin-top:60%;
+	height:8%;
+	margin-top:70%;
 	padding-left: 10%;
 }
 .textwidget p a{
@@ -383,12 +399,11 @@ img.subContentLeftImg{
 .footerText{
 	color:#fff;
 	width:80%;
-	height:40px;
+	height:8%;
 	margin-top:20%;
 	padding-left: 10%;
 }
 #aitem5, #aitem6, #aitem7, #aitem8, #aitem9{
 	color: #fff;
 	font-size:0.95em;
-	padding-top:
 }
