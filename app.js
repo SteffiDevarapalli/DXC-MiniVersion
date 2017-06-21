@@ -1,6 +1,41 @@
+'use strict';
+
 var app = angular.module("myApp", []);
 
+		app.directive('resize', function ($window) {
+			return function (scope, element) {
+				var w = angular.element($window);
+				scope.getWindowDimensions = function () {
+					return { 'h': screen.availHeight, 'w': screen.availWidth };
+				};
+				scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+					//scope.windowHeight = newValue.h;
+					//scope.windowWidth = newValue.w;					
+					scope.style = function () {
+						return { 
+							'height': (newValue.h - 75) + 'px',
+							'width': (newValue.w ) + 'px' 
+						};
+					};
+					
+				}, true);
+			
+				w.bind('resize', function () {
+					scope.$apply();
+				});
+			}
+		})
+
 		app.controller("myCtrl", function($scope, $location, $anchorScroll,$parse,$injector,$compile,$timeout,$window) {
+			       
+			/*angular.element('.controller').bind('resize', function(){       
+				$scope.width = screen.availWidth; 
+				$scope.height = screen.availHeight; 				
+				// manuall $digest required as resize event
+				// is outside of angular
+				$scope.$digest();
+			});	*/		
+			
 			$scope.AbsoluteImageUrl = "../images/signin-20170425-02.jpg";	
 			
 			$scope.ThemeImageUrl = "../images/index.png";
@@ -15,7 +50,7 @@ var app = angular.module("myApp", []);
 			 var slideTimer =
 			 $timeout(function interval() {
 				 slideshow = (slideshow % slidesInSlideshow) + 1;
-				 for (i = 1; i <= 4; i++) {
+				 for (var i = 1; i <= 4; i++) {
 					var strImg = 'imgdisp'+i;
 					if(eval(slideshow) == eval(i)){
 						var model = $parse(strImg);	
