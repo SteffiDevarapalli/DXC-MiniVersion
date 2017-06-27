@@ -1,61 +1,69 @@
 <!DOCTYPE html>
 <html>
+	<title>Test Site</title>
 	<script src="..\JS\angular-1.6.4\angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
-	<link rel="stylesheet" href="..\CSS\layout.css"/>
-	<script src="..\JS\app.js"></script>
+	<link rel="stylesheet" href="..\CSS\layout.css"/>	
 	
 	<body ng-app="myApp" >
 		<div ng-controller="myCtrl" >
-			<!--<div class="sliderDiv">
-				<div class="textdisp">	
-					<p class="title">{{Title}}</p><p class="title2" ng-click="showDiv()">&#8900; {{Options}}</p>
-					<img alt="theme" ng-src="{{MobileImageUrl}}" class="imageIcon" ng-attr-title="Mobile View"/>
-					<img alt="theme" ng-src="{{TabImageUrl}}" class="imageIcon" ng-attr-title="Tablet View"/>
-					<img alt="theme" ng-src="{{DesktopImageUrl}}" class="imageIcon" ng-attr-title="Desktop View"/>
-				</div>
-				<div class="imgSliderDiv" ng-show="display">
-					<div class="leftArrow" ><img alt="theme" ng-src="..\images\left.png" class="anchors" ng-click="scrollImageLeft()"/></div>
-					<div class="imageDiv"> 					
-						<ul class="navigation2">
-							<li ng-repeat="siteitems in siteitems"  ng-show="{{siteitems.id}}" class="siteitems" ng-id="{{siteitems.id}}" >
-								<div>
-									<img alt="theme" ng-src="{{siteitems.imagename}}" class="siteIcons"/><span class="title">{{siteitems.title}}</span>
-								</div>
-							</li>
-						</ul>						
-					</div>
-					<div class="rightArrow"><img alt="theme" ng-src="..\images\right.png" class="anchors" ng-click="scrollImageRight()"/></div>
-				</div>
-			</div>-->
+			
 			<div class="mainBody" ng-style="style()" resize>
-				<div class="controller" ng-style="myObj" >					
-					<img src="../images/video-background1.jpg"  ng-show="imgdisp1" class="sliderimg" />
-					<img src="../images/start-dusk-1500x1000.jpg" ng-show="imgdisp2"class="sliderimg" />	
-					<img src="../images/hero-31-a-1500x1000.jpg" ng-show="imgdisp3" class="sliderimg"/>	
-					<img src="../images/Mans-Hands-Typing-On-Laptop-With-Smartphone-Book-And-Coffee.jpg" ng-show="imgdisp4" class="sliderimg" />	
+				<div class="overlay" ng-show="overlay" class="animate-show animate-hide" >
+					<div class="overlaydiv" >
+					<p class="overlaygen">FOR THE LOVE OF CREATIVES</p>
+					<span class="overlaytext">The most powerful way to</span> 
+					<span class="overlaytext">share your work.</span><br>
+					<img src="../images/down.png" ng-click="hideOverlay()" class="overlayimg"/>
+					</div>
+					
+				</div>
+				
+				<div class="controller" ng-style="myObj" >						
+					<div class="slider" ng-style="slidestyle">
+						<div ng-show="imgdisp1">							
+							<video id="myVideo" width="100%" height="100%">
+							  <source src="http://thenewcode.com/assets/videos/fashion-export.mp4" type="video/mp4" width="100%" height="100%">  
+							</video>
+
+						</div>					
+						<!--<div>
+							<img src="../images/video-background1.jpg"   class="sliderimg" />
+						</div>-->	
+						<div ng-show="imgdisp2">
+							<img src="../images/start-dusk-1500x1000.jpg" ng-show="imgdisp2"class="sliderimg" />	
+						</div>	
+						<div ng-show="imgdisp3">
+							<img src="../images/slide3.png" ng-show="imgdisp3" class="sliderimg"/>	
+						</div>	
+						<div ng-show="imgdisp4">
+							<img src="../images/Mans-Hands-Typing-On-Laptop-With-Smartphone-Book-And-Coffee.jpg" ng-show="imgdisp4" class="sliderimg" />
+						</div>
+					</div>
 					<div class="sliderLi">
-						<ul>
-							<li></li>
-							<li></li>
-							<li></li>
-							<li></li>
+						<ul >
+							<li ng-style="disp1"></li>
+							<li ng-style="disp2"></li>
+							<li ng-style="disp3"></li>
+							<li ng-style="disp4"></li>
 						</ul>
 					</div>
 					<div class="itemsdisp" >
 						<div class="subDiv">
-							<a href="javascript:void(0);"><img ng-src="..\images\struck-light1.png" class="homeImg"/></a>							
+							<a href="javascript:void(0);"><img ng-src="{{struckImg}}" class="homeImg"/></a>							
 						</div>
 						<div class="subDiv1">							
-							<ul class="navigation">
+							<ul class="navigation" >
 								<li class="menuitems">
 									<a href="javascript:void(0);" ng-mouseover="showContent('none')" ng-click="slideDiv()" ng-style="myObj1">
-										<img ng-src="{{menuImg}}" class="menuToggle"/>
+										<img ng-src="{{menuImg}}" class="menuToggle" ng-show="imageshow"/>
+										<img ng-src="{{menuCloseImg}}" class="menuToggleClose" ng-show="imageshowclose"/>
 									</a>
 								</li>
-								<li ng-repeat="menuitems in menuitems" class="menuitems" ng-mouseover="showContent(menuitems.title)">
-									<a href="javascript:void(0);" >{{menuitems.title}} &#x25BF;</a>
+								<li ng-repeat="menuitems in menuitems" class="menuitems" ng-mouseover="showContent(menuitems.title)" >
+									<a href="javascript:void(0);" ng-style="menubar">{{menuitems.title}} &#x25BF;</a>
 								</li>								
 							</ul>
 						</div>
@@ -87,18 +95,28 @@
 				<div class="controller-right" ng-show="show">
 					<input type="text" name="s" id="s" placeholder="Search..." maxlength="20">
 					<ul class="navigationToggle">
-						<li class="toggleItems">
-						<li ng-repeat="toggleItems in toggleItems" class="toggleItems" ng-click="showSubContent(toggleItems.id,toggleItems.title)" ng-show="{{toggleItems.displayLi}}" id="{{toggleItems.id}}">
-							<img ng-src="..\images\leftArrow.png" class="subContentLeftImg" id="imgLeft{{toggleItems.id}}" ng-show="hide"/><a href="javascript:void(0);" id="a{{toggleItems.id}}" ng-style="">{{toggleItems.title}}<img ng-src="..\images\rightArrow.png" class="subContent" id="img{{toggleItems.id}}" ng-show="{{toggleItems.display}}"/></a>
+						<li ng-repeat="toggleItems in toggleItems" class="toggleItems" ng-click="showSubContent(toggleItems.id,toggleItems.title)"  ng-show="{{toggleItems.id}}">
+							<img ng-src="..\images\leftArrow.png" class="subContentLeftImg" ng-show="imgLeft{{toggleItems.id}}"/>
+							<a href="javascript:void(0);" id="a{{toggleItems.id}}" ng-style="style{{toggleItems.id}}">{{toggleItems.title}}
+							<img ng-src="..\images\rightArrow.png" class="subContent" ng-show="img{{toggleItems.id}}"/></a>
 						</li>								
+					</ul>
+					<ul class="navigationToggle1" ng-show="navObj1">						
+						<li class="toggleItems" ng-click="" ><a href="javascript:void(0);"  ng-style="">The Team</a></li>
+						<li class="toggleItems" ng-click="" ><a href="javascript:void(0);"  ng-style="">About Me</a></li>														
+					</ul>
+					<ul class="navigationToggle3" ng-show="navObj3">
+						<li class="toggleItems" ng-click="" ><a href="javascript:void(0);"  ng-style="">Branding</a></li>
+						<li class="toggleItems" ng-click="" ><a href="javascript:void(0);"  ng-style="">Photography</a></li>
+						<li class="toggleItems" ng-click="" ><a href="javascript:void(0);"  ng-style="">Product Design</a></li>														
 					</ul>
 					<div class="textwidget">
 						<p>
-							<a href="http://twitter.com/" class="twitter" target="_self" title="Follow Me"></a> 
-							<a href="http://facebook.com/" class="facebook" target="_self" title="Like Us"></a> 
-							<a href="http://instagram.com/" class="instagram" target="_self" title="Follow Me"></a> 
-							<a href="http://dribbble.com/" class="dribbble" target="_self" title="Follow Me"></a> 
-							<a href="http://youtube.com/" class="youtube" target="_self" title="Follow Me"></a>
+							<a href="http://twitter.com/" class="twitter" target="_blank" title="Follow Me"></a> 
+							<a href="http://facebook.com/" class="facebook" target="_blank" title="Like Us"></a> 
+							<a href="http://instagram.com/" class="instagram" target="_blank" title="Follow Me"></a> 
+							<a href="http://dribbble.com/" class="dribbble" target="_blank" title="Follow Me"></a> 
+							<a href="http://youtube.com/" class="youtube" target="_blank" title="Follow Me"></a>
 						</p>						
 					</div>
 					<div class="footerText">© 2015 Your Company</div>
@@ -106,4 +124,5 @@
 			</div>
 		</div>
 	</body>
+	<script src="..\JS\app.js"></script>
 </html>
