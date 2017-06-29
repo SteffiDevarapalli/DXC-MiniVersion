@@ -10,44 +10,55 @@
 	<body ng-app="myApp" >
 		<div ng-controller="myCtrl" >
 			
-			<div class="mainBody" ng-style="style()" resize>
-				<div class="overlay" ng-show="overlay" class="animate-show animate-hide" >
-					<div class="overlaydiv" >
-					<p class="overlaygen">FOR THE LOVE OF CREATIVES</p>
-					<span class="overlaytext">The most powerful way to</span> 
-					<span class="overlaytext">share your work.</span><br>
-					<img src="../images/down.png" ng-click="hideOverlay()" class="overlayimg"/>
-					</div>
-					
-				</div>
+			<div class="mainBody" ng-style="style()" resize>			
 				
-				<div class="controller" ng-style="myObj" >						
-					<div class="slider" ng-style="slidestyle">
-						<div ng-show="imgdisp1">							
-							<video id="myVideo" width="100%" height="100%">
+				<div class="controller" ng-style="myObj" data-ng-init="moveToSlider(1)" >						
+					<div class="slider" ng-style="slidestyle" >						
+						<div ng-show="imgdisp1" id="imgdisp1" class="sliderImgDiv">
+							<div class="overlaydiv" >
+								<p class="overlaygen">FOR THE LOVE OF CREATIVES</p>
+								<span class="overlaytext">The most powerful way to</span> 
+								<span class="overlaytext">share your work.</span>								
+							</div>	
+							<video id="myVideo" width="100%" height="100%" class="sliderimg animate-show animate-hide">
 							  <source src="http://thenewcode.com/assets/videos/fashion-export.mp4" type="video/mp4" width="100%" height="100%">  
 							</video>
-
 						</div>					
 						<!--<div>
 							<img src="../images/video-background1.jpg"   class="sliderimg" />
 						</div>-->	
-						<div ng-show="imgdisp2">
-							<img src="../images/start-dusk-1500x1000.jpg" ng-show="imgdisp2"class="sliderimg" />	
+						<div ng-show="imgdisp2" id="imgdisp2" class="sliderImgDiv">						
+							<div class="overlaydiv2" >								
+								<p class="overlaytext2">Designed to be unforgettable.</p> 
+								<hr class="overlaydivider" data-width="100px">
+								<p class="overlaygen2">Struck is perfect for artists, agencies, startups, software and product designers. 
+								Struck helps you showcase your work in a unique way to ensure you’re remarkable.</p>
+							</div>	
+							<img src="../images/start-dusk-1500x1000.jpg" ng-show="imgdisp2" class="sliderimg animate-show animate-hide" />	
 						</div>	
-						<div ng-show="imgdisp3">
-							<img src="../images/slide3.png" ng-show="imgdisp3" class="sliderimg"/>	
+						<div ng-show="imgdisp3" id="imgdisp3" class="sliderImgDiv">
+							<div class="overlaydiv3" >
+								<p class="overlaygen">SECTION SLIDESHOWS</p>
+								<span class="overlaytext">Give your story a whole other </span> 
+								<span class="overlaytext">dimension of intrigue.</span>
+							</div>
+							<img src="../images/slide3.png" ng-show="imgdisp3" class="sliderimg animate-show animate-hide"/>	
 						</div>	
-						<div ng-show="imgdisp4">
-							<img src="../images/Mans-Hands-Typing-On-Laptop-With-Smartphone-Book-And-Coffee.jpg" ng-show="imgdisp4" class="sliderimg" />
+						<div ng-show="imgdisp4" id="imgdisp4" class="sliderImgDiv">	
+							<div class="overlaydiv4" >								
+								<p class="overlaytext2">What’s New</p> 
+								<p class="overlaygen4">Check out our featured news, projects and more.</p>								
+							</div>
+							<img src="../images/man-with-hands.png" ng-show="imgdisp4" class="sliderimg animate-show animate-hide" />
 						</div>
+						<img src="../images/down.png"  class="overlayimg" ng-click="" ng-show="sliderarrow"/>
 					</div>
 					<div class="sliderLi">
-						<ul >
-							<li ng-style="disp1"></li>
-							<li ng-style="disp2"></li>
-							<li ng-style="disp3"></li>
-							<li ng-style="disp4"></li>
+						<ul>
+							<li ng-style="disp1" ng-click="moveToSlider(1)"></li>
+							<li ng-style="disp2" ng-click="moveToSlider(2)"></li>
+							<li ng-style="disp3" ng-click="moveToSlider(3)"></li>
+							<li ng-style="disp4" ng-click="moveToSlider(4)"></li>
 						</ul>
 					</div>
 					<div class="itemsdisp" >
@@ -83,13 +94,7 @@
 								</li>
 							</ul>
 						</div>
-						<!--<div class="workdisp" ng-show="work">
-							<ul class="navigation1" ng-mouseleave="hideContent()">
-								<li ng-repeat="workitems in workitems" class="workitems" ng-click="workList.activeItem=workitems.id">
-									<a href="javascript:void(0);">{{workitems.title}}</a>
-								</li>
-							</ul>
-						</div>-->
+						
 					</div>
 				</div>								
 				<div class="controller-right" ng-show="show">
@@ -123,6 +128,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</body>
 	<script src="..\JS\app.js"></script>
 </html>
