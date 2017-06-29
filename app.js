@@ -40,8 +40,66 @@ var app = angular.module("myApp",  ["ngRoute"]);
 				});
 			}
 		});
+		
+		app.service('anchorSmoothScroll', function(){
+    
+			this.scrollTo = function(eID) {
+
+				// This scrolling function 
+				// is from http://www.itnewb.com/tutorial/Creating-the-Smooth-Scroll-Effect-with-JavaScript
+				
+				var startY = currentYPosition();
+				var stopY = elmYPosition(eID);
+				var distance = stopY > startY ? stopY - startY : startY - stopY;
+				if (distance < 100) {
+					scrollTo(0, stopY); return;
+				}
+				var speed = Math.round(distance / 100);
+				if (speed >= 20) speed = 20;
+				var step = Math.round(distance / 25);
+				var leapY = stopY > startY ? startY + step : startY - step;
+				var timer = 0;
+				if (stopY > startY) {
+					for ( var i=startY; i<stopY; i+=step ) {
+						setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
+						leapY += step; 
+						if (leapY > stopY) leapY = stopY; 
+						timer++;
+					} return;
+				}
+				for ( var i=startY; i>stopY; i-=step ) {
+					setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
+					leapY -= step; 
+					if (leapY < stopY) leapY = stopY; 
+					timer++;
+				}
+				
+				function currentYPosition() {
+					// Firefox, Chrome, Opera, Safari
+					if (self.pageYOffset) return self.pageYOffset;
+					// Internet Explorer 6 - standards mode
+					if (document.documentElement && document.documentElement.scrollTop)
+						return document.documentElement.scrollTop;
+					// Internet Explorer 6, 7 and 8
+					if (document.body.scrollTop) return document.body.scrollTop;
+					return 0;
+				}
+				
+				function elmYPosition(eID) {
+					var elm = document.getElementById(eID);
+					var y = elm.offsetTop;
+					var node = elm;
+					while (node.offsetParent && node.offsetParent != document.body) {
+						node = node.offsetParent;
+						y += node.offsetTop;
+					} return y;
+				}
+
+			};
+			
+		});
 	
-		app.controller("myCtrl", function($scope, $location, $anchorScroll,$parse,$injector,$compile,$timeout,$window,$route) {
+		app.controller("myCtrl", function($scope, $parse,$timeout,$window,$route,$interval, $location, anchorSmoothScroll) {
 			
 			$scope.AbsoluteImageUrl = "../images/signin-20170425-02.jpg";	
 			
@@ -50,8 +108,7 @@ var app = angular.module("myApp",  ["ngRoute"]);
 			$scope.menuCloseImg = "../images/close-white.png";
 			$scope.struckImg = "../images/struck-light1.png";
 			$scope.imageshow = true;
-			$scope.overlay = true;		
-			var slideheight = screen.availHeight - 70;
+			var slideheight = screen.availHeight - 70;			
 								
 			// Must use a wrapper object, otherwise "activeItem" won't work			
 			$scope.menuBarList = {};
@@ -68,80 +125,59 @@ var app = angular.module("myApp",  ["ngRoute"]);
 			}];
 			
 			/*code for sliding images */
-
-				var slidesInSlideshow = 4;
-				var slideshow = 1;				
-				var slidesTimeIntervalInMs = 8000;
+			$scope.moveToSlider = function(slideval){	
+			
+				$scope.menubar = {'color':'#dcdcdc'};
+				$scope.struckImg = "../images/struck-light1.png";
+				$scope.menuImg = "../images/menu-toggle-thin.png";
+				$scope.menuCloseImg = "../images/close-white.png";
+				$scope.sliderarrow = true;
+				//var strImg = 'imgdisp'+slideval;
+				for (var i = 1; i <= 4; i++) {
+					var strImg = 'imgdisp'+i;
+					if(eval(slideval) == eval(i)){
+						$parse(strImg).assign($scope, true);						
+					}else{
+						$parse(strImg).assign($scope, false);
+					}					
+				};
+				if(eval(slideval) == 1){
+					$scope.disp1 = {'color':'#00a498'};
+					$scope.disp2 = {'color':'#fff'};
+					$scope.disp3 = {'color':'#fff'};
+					$scope.disp4 = {'color':'#fff'};
+				}else if(eval(slideval) == 2){
+					$scope.disp2 = {'color':'#00a498'};
+					$scope.disp1 = {'color':'#fff'};
+					$scope.disp3 = {'color':'#fff'};
+					$scope.disp4 = {'color':'#fff'};
+				}else if(eval(slideval) == 3){
+					$scope.disp3 = {'color':'#00a498'};
+					$scope.disp1 = {'color':'#fff'};
+					$scope.disp2 = {'color':'#fff'};
+					$scope.disp4 = {'color':'#fff'};
+				}else{
+					$scope.disp4 = {'color':'#00a498'};
+					$scope.disp1 = {'color':'#fff'};
+					$scope.disp2 = {'color':'#fff'};
+					$scope.disp3 = {'color':'#fff'};
+					$scope.sliderarrow = false;
+				}	
 				
-				 $scope.imgdisp1 = true;
-				 $scope.disp1 = {'color':'#00a498'};
-				 $scope.menubar = {'color':'#dcdcdc'};
-				 var slideTimer =
-				 $timeout(function interval() {
-					slideshow = (slideshow % slidesInSlideshow) + 1;
-					if(slideshow != 1){
-						slidesTimeIntervalInMs = 4000;
-						$scope.overlay = false;
-					}else{
-						slidesTimeIntervalInMs = 8000;
-						$scope.overlay = true;
-					}
-					for (var i = 1; i <= 4; i++) {
-						var strImg = 'imgdisp'+i;
-						if(eval(slideshow) == eval(i)){
-							$parse(strImg).assign($scope, true);											
-						}else{
-							$parse(strImg).assign($scope, false);
-						}					
-					};
-					
-					if(eval(slideshow) == 1){
-						$scope.disp1 = {'color':'#00a498'};
-						$scope.disp2 = {'color':'#fff'};
-						$scope.disp3 = {'color':'#fff'};
-						$scope.disp4 = {'color':'#fff'};
-						$scope.menubar = {'color':'#dcdcdc'};
-						$scope.struckImg = "../images/struck-light1.png";
-						$scope.menuImg = "../images/menu-toggle-thin.png";
-						$scope.menuCloseImg = "../images/close-white.png";
-					}else if(eval(slideshow) == 2){
-						$scope.disp2 = {'color':'#00a498'};
-						$scope.disp1 = {'color':'#fff'};
-						$scope.disp3 = {'color':'#fff'};
-						$scope.disp4 = {'color':'#fff'};
-						$scope.menubar = {'color':'#dcdcdc'};
-						$scope.struckImg = "../images/struck-light1.png";
-						$scope.menuImg = "../images/menu-toggle-thin.png";
-						$scope.menuCloseImg = "../images/close-white.png";
-					}else if(eval(slideshow) == 3){
-						$scope.disp3 = {'color':'#00a498'};
-						$scope.disp1 = {'color':'#fff'};
-						$scope.disp2 = {'color':'#fff'};
-						$scope.disp4 = {'color':'#fff'};
-						$scope.menubar = {'color':'#dcdcdc'};
-						$scope.struckImg = "../images/struck-light1.png";
-						$scope.menuImg = "../images/menu-toggle-thin.png";
-						$scope.menuCloseImg = "../images/close-white.png";
-					}else{
-						$scope.disp4 = {'color':'#00a498'};
-						$scope.disp1 = {'color':'#fff'};
-						$scope.disp2 = {'color':'#fff'};
-						$scope.disp3 = {'color':'#fff'};
-						$scope.menubar = {'color':'#000'};
-						$scope.struckImg = "../images/struck-dark1.png";
-						$scope.menuImg = "../images/menu4.png";
-						$scope.menuCloseImg = "../images/close.png";
-					}
-					 slideTimer = $timeout(interval, slidesTimeIntervalInMs);
-				}, slidesTimeIntervalInMs);
-					/*code for sliding images - ends*/
-
-			$scope.hideOverlay = function(){
-				$scope.slidestyle = {
-					"margin-top" : "-'eval(slideheight)'",	
+				//$location.hash(strImg);			 
+				//anchorSmoothScroll.scrollTo(strImg);
+				
+				/*code for sliding images - ends*/					
+			}
+			
+			
+			
+			$scope.scrollImages = function(){
+				/*$scope.slidestyle = {
+					"margin-top" : "-600px",	
 					"-moz-transition":"ease-in-out",
 					"-webkit-transition":"ease-in-out"
-				}
+				}*/
 			}
 			
 			$scope.showDiv = function(){
